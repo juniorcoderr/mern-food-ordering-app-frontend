@@ -1,32 +1,25 @@
-import { FiSearch } from "react-icons/fi";
 import landingImage from "../assets/landing.png";
 import appDownloadImage from "../assets/appDownload.png";
+import SearchBar, { SearchForm } from "@/components/SearchBar";
+import { useNavigate } from "react-router-dom";
 export default function HomePage() {
+  const navigate = useNavigate();
+  const handleSearchSubmit = (searchFormValues: SearchForm) => {
+    navigate({
+      pathname: `/search/${searchFormValues.searchQuery}`,
+    });
+  };
   return (
     <div className="flex flex-col gap-12 bg-gray-100 min-h-screen p-8">
-      <div className="bg-white rounded-lg shadow-2xl py-8 px-6 flex flex-col gap-5 text-center -mt-24">
+      <div className="md:px-32 bg-white rounded-lg shadow-2xl py-8 px-6 flex flex-col gap-5 text-center -mt-24">
         <h1 className="text-5xl font-bold tracking-tight text-orange-600">
           Tuck into a takeaway today
         </h1>
         <span className="text-xl">Food is just a click away!</span>
-
-        <div className="flex justify-center mt-4">
-          <div className="flex items-center w-full max-w-2xl bg-white border border-gray-300 rounded-lg shadow-sm">
-            <span className="px-3 text-gray-500">
-              <FiSearch />
-            </span>
-
-            <input
-              type="text"
-              placeholder="Search for food, restaurants, etc."
-              className="w-full px-4 py-2 focus:outline-none"
-            />
-
-            <button className="px-4 py-2 bg-orange-600 text-white font-semibold rounded-r-lg hover:bg-orange-700">
-              Search
-            </button>
-          </div>
-        </div>
+        <SearchBar
+          placeHolder="Search by City or Town"
+          onSubmit={handleSearchSubmit}
+        />
       </div>
       <div className="grid md:grid-cols-2 gap-5">
         <img src={landingImage} />
